@@ -152,9 +152,7 @@ Hasil yang diharapkan: satu request diterima (`202`), satu request ditolak (`409
 **Penting:** `asyncio.Lock` adalah lock pada satu proses worker. Lock ini bukan lock lintas proses. Karena itu, demonstrasi race condition di atas menggunakan satu worker. Pada deployment multi-worker, perlindungan stok lintas proses memerlukan mekanisme atomik/transaksi database atau distributed lock. Jangan mengklaim `asyncio.Lock` saja melindungi seluruh worker.
 
 ## 7. Pengujian Locust
-
 Jalankan server normal (tanpa mode demo), lalu di terminal lain:
-
 ```powershell
 locust -f locustfile.py --host http://127.0.0.1:8000
 ```
