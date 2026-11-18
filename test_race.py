@@ -2,7 +2,7 @@ import asyncio
 import httpx
 
 BASE_URL = "http://127.0.0.1:8000"
-MEDICINE_ID = 5
+MEDICINE_ID = 6
 
 async def main():
     async with httpx.AsyncClient(timeout=15) as client:
