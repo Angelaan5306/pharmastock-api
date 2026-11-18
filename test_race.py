@@ -29,7 +29,16 @@ async def main():
         print("Request 2:", response_2.status_code, response_2.json())
 
         final_medicine = await client.get(f"{BASE_URL}/medicines/{MEDICINE_ID}")
-        print("Stok akhir:", final_medicine.json()["stok"])
+
+        print("\n--- PEMERIKSAAN STOK AKHIR ---")
+        print("HTTP Status:", final_medicine.status_code)
+        print("Response:", repr(final_medicine.text))
+
+        if final_medicine.status_code == 200:
+            data = final_medicine.json()
+            print("Stok akhir:", data.get("stok"))
+        else:
+            print("Gagal mengambil data obat.")
 
         print("\nEkspektasi:")
         print("- Tanpa lock: dua request dapat diterima dan stok dapat menjadi -1.")
