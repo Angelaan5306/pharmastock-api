@@ -1,5 +1,4 @@
 # PharmaStock API
-
 Video presentasi: link vid nnti wkawk
 
 REST API backend untuk manajemen obat dan transaksi penjualan apotek. Proyek ini dibuat untuk UTS Komputasi Paralel dan Terdistribusi dengan FastAPI, SQLite melalui `aiosqlite`, asynchronous processing, `BackgroundTasks`, dan `asyncio.Lock`.
@@ -60,7 +59,6 @@ Buka dokumentasi interaktif:
 Tidak diperlukan frontend terpisah. Seluruh endpoint dapat dicoba melalui Swagger UI.
 
 ## 4. Endpoint
-
 | Method | Path | Keterangan |
 |---|---|---|
 | GET | `/medicines?skip=0&limit=10` | Daftar obat |
@@ -82,9 +80,7 @@ Kode status utama:
 - `422 Unprocessable Entity`: validasi request gagal.
 
 ## 5. Contoh request
-
 ### Tambah obat
-
 `POST /medicines`
 
 ```json
@@ -99,7 +95,6 @@ Kode status utama:
 ```
 
 ### Buat transaksi
-
 `POST /transactions`
 
 ```json
@@ -112,11 +107,9 @@ Kode status utama:
 Response awal mengandung status `pending`. Cek `GET /transactions/{id}` setelah beberapa detik untuk melihat status berubah menjadi `completed`.
 
 ## 6. Pengujian race condition
-
 Pengujian ini dilakukan pada satu worker agar demonstrasi `asyncio.Lock` sesuai dengan cakupan prosesnya.
 
 ### Tahap 1: tanpa lock
-
 PowerShell:
 
 ```powershell
@@ -133,7 +126,6 @@ python test_race.py
 Dua request dapat membaca stok awal yang sama sebelum keduanya mengurangi stok. Hasil yang diharapkan pada mode demonstrasi adalah dua transaksi diterima dan stok akhir dapat menjadi `-1`.
 
 ### Tahap 2: dengan lock
-
 Matikan server dengan `Ctrl+C`. Hapus variabel mode demo pada terminal PowerShell:
 
 ```powershell
@@ -166,7 +158,6 @@ Lakukan skenario sesuai instruksi UTS:
 Catat total waktu, throughput, dan rata-rata latensi. Ulangi dengan server 1 worker dan 4 worker. Gunakan data hasil pengujian aktual di laporan, jangan mengisi angka perkiraan.
 
 ## 8. Multi-worker
-
 Matikan server sebelum mengganti jumlah worker.
 
 ```powershell
@@ -182,7 +173,6 @@ uvicorn main:app --workers 4 --port 8000
 Jangan gunakan `--reload` bersamaan dengan `--workers`.
 
 ## 9. Catatan teknis
-
 - Database dibuat otomatis saat aplikasi pertama kali dijalankan.
 - Jalankan `python seed.py` untuk memasukkan 10 data awal. Seed tidak menghapus data dan riwayat transaksi.
 - Penghapusan obat yang telah memiliki transaksi ditolak dengan `409` agar foreign key dan riwayat transaksi tetap konsisten.
@@ -191,7 +181,6 @@ Jangan gunakan `--reload` bersamaan dengan `--workers`.
 - `asyncio.Lock` hanya melindungi request dalam satu proses Python.
 
 ## 10. Checklist sebelum pengumpulan
-
 - [ ] Jalankan CRUD obat melalui Swagger UI.
 - [ ] Pastikan seed berisi minimal 10 obat.
 - [ ] Tunjukkan status transaksi pending hingga completed.

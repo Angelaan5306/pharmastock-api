@@ -8,7 +8,6 @@ from models import MedicineCreate, MedicineUpdate, MedicineResponse
 
 router = APIRouter(prefix="/medicines", tags=["Medicines"])
 
-
 @router.get("", response_model=List[MedicineResponse])
 async def get_all_medicines(
     skip: int = Query(default=0, ge=0),
@@ -48,7 +47,6 @@ async def create_medicine(data: MedicineCreate):
             columns = [item[0] for item in cur.description]
             return dict(zip(columns, row))
 
-
 @router.get("/{med_id}", response_model=MedicineResponse)
 async def get_medicine_detail(med_id: int):
     """Menampilkan detail satu obat."""
@@ -59,7 +57,6 @@ async def get_medicine_detail(med_id: int):
             if row is None:
                 raise HTTPException(status_code=404, detail="Obat tidak ditemukan")
             return dict(row)
-
 
 @router.put("/{med_id}", response_model=MedicineResponse)
 async def update_medicine(med_id: int, data: MedicineUpdate):
@@ -85,7 +82,6 @@ async def update_medicine(med_id: int, data: MedicineUpdate):
         db.row_factory = aiosqlite.Row
         async with db.execute("SELECT * FROM medicines WHERE id = ?", (med_id,)) as cursor:
             return dict(await cursor.fetchone())
-
 
 @router.delete("/{med_id}", status_code=status.HTTP_200_OK)
 async def delete_medicine(med_id: int):

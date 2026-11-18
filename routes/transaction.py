@@ -19,7 +19,6 @@ router = APIRouter(prefix="/transactions", tags=["Transactions"])
 stok_lock = asyncio.Lock()
 DEMO_NO_LOCK = os.getenv("DEMO_NO_LOCK", "0") == "1"
 
-
 async def _reserve_stock(medicine_id: int, jumlah: int):
     """
     Membaca stok, memberi jeda kecil, lalu menguranginya.
@@ -71,7 +70,6 @@ async def _reserve_stock(medicine_id: int, jumlah: int):
             "total_harga": total,
         }
 
-
 async def proses_transaksi_background(trx_id: int):
     """Worker internal: pending -> processing -> completed."""
     try:
@@ -100,7 +98,6 @@ async def proses_transaksi_background(trx_id: int):
             )
             await db.commit()
 
-
 @router.post(
     "",
     response_model=TransactionCreateResponse,
@@ -127,7 +124,6 @@ async def create_transaction(data: TransactionCreate, bg: BackgroundTasks):
         "message": "Transaksi diterima dan sedang diproses di latar belakang",
     }
 
-
 @router.get("", response_model=List[TransactionResponse])
 async def get_all_transactions(
     status_filter: Optional[str] = Query(default=None, alias="status"),
@@ -152,7 +148,6 @@ async def get_all_transactions(
         async with db.execute(query, params) as cursor:
             rows = await cursor.fetchall()
             return [dict(row) for row in rows]
-
 
 @router.get("/{trx_id}", response_model=TransactionResponse)
 async def get_transaction_detail(trx_id: int):

@@ -1,17 +1,8 @@
-"""
-Jalankan server terlebih dahulu.
-Tahap 1 tanpa lock: set DEMO_NO_LOCK=1 lalu jalankan server.
-Tahap 2 dengan lock: matikan server, jalankan tanpa DEMO_NO_LOCK, lalu ulangi skrip.
-
-Skrip akan mengatur stok obat ID 6 menjadi 1, lalu mengirim dua transaksi
-masing-masing satu unit secara bersamaan.
-"""
 import asyncio
 import httpx
 
 BASE_URL = "http://127.0.0.1:8000"
-MEDICINE_ID = 6
-
+MEDICINE_ID = 5
 
 async def main():
     async with httpx.AsyncClient(timeout=15) as client:
@@ -43,7 +34,6 @@ async def main():
         print("\nEkspektasi:")
         print("- Tanpa lock: dua request dapat diterima dan stok dapat menjadi -1.")
         print("- Dengan lock: satu request diterima, satu ditolak HTTP 409, stok 0.")
-
 
 if __name__ == "__main__":
     asyncio.run(main())

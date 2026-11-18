@@ -3,7 +3,6 @@ import aiosqlite
 
 from database import DB_PATH, init_db
 
-
 INITIAL_MEDICINES = [
     ("Paracetamol 500mg", "Obat Bebas", 5000.0, 50, "Strip", "Obat pereda nyeri dan demam"),
     ("Amoxicillin 500mg", "Antibiotik", 12000.0, 30, "Strip", "Antibiotik; penggunaan sesuai resep tenaga medis"),
@@ -16,7 +15,6 @@ INITIAL_MEDICINES = [
     ("Betadine 15ml", "Antiseptik", 18000.0, 50, "Botol", "Antiseptik luar"),
     ("OBH Combi Batuk", "Obat Batuk", 16000.0, 25, "Botol", "Obat batuk"),
 ]
-
 
 async def seed_data():
     await init_db()
@@ -36,7 +34,6 @@ async def seed_data():
         )
         await db.commit()
     print("[OK] Data awal PharmaStock API siap (10 jenis obat).")
-
 
 if __name__ == "__main__":
     asyncio.run(seed_data())
