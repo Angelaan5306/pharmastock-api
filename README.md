@@ -1,5 +1,5 @@
 # PharmaStock API
-Video presentasi: link vid nnti wkawk
+Video presentasi: https://youtu.be/PvrlD-84gVs?si=ylWU3pCty4zyEUlD
 
 REST API backend untuk manajemen obat dan transaksi penjualan apotek. Proyek ini dibuat untuk UTS Komputasi Paralel dan Terdistribusi dengan FastAPI, SQLite melalui `aiosqlite`, asynchronous processing, `BackgroundTasks`, dan `asyncio.Lock`.
 
